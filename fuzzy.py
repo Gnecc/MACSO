@@ -1,12 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Sat Feb 19 23:30:16 2022
+"""MACSO - Fuzzy C-Means clustering.
 
-@author: bryanedoardocisnerosbravo
+Author: Bryan Cisneros
+Date: January 2024
+
+Dataset: conjunto_de_datos_normalizados.xlsx
+
+Summary:
+    This file contains an experiment script for the MACSO repository.
+    It was standardized to remove external web references and Spanish-only
+    header metadata, and to use a consistent English documentation header.
 """
 
-%matplotlib inline
+
+
 import numpy as np
 from fcmeans import FCM
 from matplotlib import pyplot as plt

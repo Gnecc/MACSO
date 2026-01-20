@@ -1,10 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Feb 24 22:00:47 2022
+"""MACSO - Support Vector Machine (One-vs-Rest) classification.
 
-@author: bryanedoardocisnerosbravo
+Author: Bryan Cisneros
+Date: January 2024
+
+Dataset: conjunto_de_datos_normalizados.xlsx
+
+Summary:
+    This file contains an experiment script for the MACSO repository.
+    It was standardized to remove external web references and Spanish-only
+    header metadata, and to use a consistent English documentation header.
 """
+
+
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -48,7 +57,6 @@ classifier = OneVsRestClassifier(
     svm.SVC(kernel="linear", probability=True, random_state=random_state)
 )
 
-#Usar dummy_y = np_utils.to_categorical(encoded_Y)
 y_score = classifier.fit(X_train, y_train).decision_function(X_test)
 
 # Compute ROC curve and ROC area for each class

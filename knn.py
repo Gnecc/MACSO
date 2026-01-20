@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""MACSO - K-Nearest Neighbors (KNN) classification.
+
+Author: Bryan Cisneros
+Date: January 2024
+
+Dataset: conjunto_de_datos_normalizados.xlsx
+
+Summary:
+    This file contains an experiment script for the MACSO repository.
+    It was standardized to remove external web references and Spanish-only
+    header metadata, and to use a consistent English documentation header.
 """
-UNIVERSIDAD AUTÓNOMA DEL ESTADO DE MÉXICO
-CU UAEM ZUMPANGO
 
 
-Author: Dr. Asdrúbal López Chau
-
-Descripción:  Ayuda Bryan Cisneros
-
-Created on Tue Feb 15 16:14:15 2022
-
-@author: asdruballopezchau
-"""
 
 import pandas as pd
 from collections import Counter

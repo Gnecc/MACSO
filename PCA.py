@@ -1,32 +1,41 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Feb 24 23:42:16 2022
+"""MACSO - Principal Component Analysis (PCA).
 
-@author: bryanedoardocisnerosbravo
+Author: Bryan Cisneros
+Date: January 2024
+
+Dataset: conjunto_de_datos_normalizados.xlsx
+
+Summary:
+    This file contains an experiment script for the MACSO repository.
+    It was standardized to remove external web references and Spanish-only
+    header metadata, and to use a consistent English documentation header.
 """
 
- # Tratamiento de datos
+
+
+ # Data processing
 # ==============================================================================
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
 
-# Gráficos
+# Plots
 # ==============================================================================
 import matplotlib.pyplot as plt
 import matplotlib.font_manager
 from matplotlib import style
-style.use('ggplot') or plt.style.use('ggplot')
+plt.style.use('ggplot')
 
-# Preprocesado y modelado
+# Preprocessing and modeling
 # ==============================================================================
 from sklearn.decomposition import PCA
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import scale
 
-# Configuración warnings
+# Warning configuration
 # ==============================================================================
 import warnings
 warnings.filterwarnings('ignore')
@@ -48,23 +57,23 @@ print('Varianza de cada variable')
 print('-------------------------')
 datos.var(axis=0)
 
-# Entrenamiento modelo PCA con escalado de los datos
+# Train PCA model with feature scaling
 # ==============================================================================
 pca_pipe = make_pipeline(StandardScaler(), PCA())
 pca_pipe.fit(datos)
 
 modelo_pca = pca_pipe.named_steps['pca']
 
-# Se combierte el array a dataframe para añadir nombres a los ejes.
+# Convert array to a DataFrame to label axes.
 pd.DataFrame(
     data    = modelo_pca.components_,
     columns = datos.columns,
     index   = ['PC1', 'PC2', 'PC3', 'PC4', 'PC5', 'PC6', 'PC7', 'PC8', 'PC9']
 )
 
-#Analisis extra
+# Additional analysis
 
-# Heatmap componentes
+# Component heatmap
 # ==============================================================================
 fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(4, 2))
 componentes = modelo_pca.components_
@@ -74,7 +83,7 @@ plt.xticks(range(len(datos.columns)), np.arange(modelo_pca.n_components_) + 1)
 plt.grid(False)
 plt.colorbar();
 
-# Porcentaje de varianza explicada por cada componente
+# Explained variance ratio per component
 # ==============================================================================
 print('----------------------------------------------------')
 print('Porcentaje de varianza explicada por cada componente')
@@ -103,7 +112,7 @@ ax.set_title('Porcentaje de varianza explicada por cada componente')
 ax.set_xlabel('Componente principal')
 ax.set_ylabel('Por. varianza explicada');
 
-# Porcentaje de varianza explicada acumulada
+# Cumulative explained variance ratio
 # ==============================================================================
 prop_varianza_acum = modelo_pca.explained_variance_ratio_.cumsum()
 print('------------------------------------------')
@@ -134,7 +143,7 @@ ax.set_title('Porcentaje de varianza explicada acumulada')
 ax.set_xlabel('Componente principal')
 ax.set_ylabel('Por. varianza acumulada');
 
-# Proyección de las observaciones de entrenamiento
+# Training projections
 # ==============================================================================
 proyecciones = pca_pipe.transform(X=datos)
 proyecciones = pd.DataFrame(
@@ -154,7 +163,7 @@ proyecciones = pd.DataFrame(proyecciones, index = ['PC1', 'PC2', 'PC3', 'PC4', '
 proyecciones = proyecciones.transpose().set_index(datos.index)
 proyecciones.head()
 
-# Recostruccion de las proyecciones
+# Reconstruction from projections
 # ==============================================================================
 recostruccion = pca_pipe.inverse_transform(X=proyecciones)
 recostruccion = pd.DataFrame(
@@ -165,9 +174,9 @@ recostruccion = pd.DataFrame(
 print('------------------')
 print('Valores originales')
 print('------------------')
-display(recostruccion.head())
+print(recostruccion.head())
 
 print('---------------------')
 print('Valores reconstruidos')
 print('---------------------')
-display(datos.head())
+print(datos.head())

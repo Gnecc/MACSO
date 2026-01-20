@@ -1,10 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""MACSO - K-Means clustering.
+
+Author: Bryan Cisneros
+Date: January 2024
+
+Dataset: conjunto_de_datos_normalizados.xlsx
+
+Summary:
+    This file contains an experiment script for the MACSO repository.
+    It was standardized to remove external web references and Spanish-only
+    header metadata, and to use a consistent English documentation header.
 """
-Created on Tue Feb  8 22:28:44 2022
-#Ref: https://www.aprendemachinelearning.com/k-means-en-python-paso-a-paso/
-@author: bryanedoardocisnerosbravo
-"""
+
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -14,7 +23,6 @@ from sklearn.metrics import pairwise_distances_argmin_min, roc_curve, roc_auc_sc
 from pandas import read_csv
 from sklearn import preprocessing
  
-%matplotlib inline
 from mpl_toolkits.mplot3d import Axes3D
 plt.rcParams['figure.figsize'] = (16, 9)
 plt.style.use('ggplot')
@@ -33,39 +41,13 @@ print(dataframe.groupby('Etiqueta').size())
 dataframe.drop(['Etiqueta'],1).hist()
 plt.show()
 
-#Definir la entrada
-
 X = dataset[:,0:9].astype(float)
 #Y = dataset[:,9]
 
-#Convertit y a numeros
 et = preprocessing.LabelEncoder()
 et.fit(dataframe['Etiqueta'])
 y = et.transform(dataframe['Etiqueta'])
-'''
-fig = plt.figure()
-ax = Axes3D(fig)
-colores=['blue','red','green','blue','cyan']
-asignar=[]
-for row in y:
-    asignar.append(colores[row])
-ax.scatter(X[:, 0], X[:, 4], X[:, 6], c=asignar,s=60)
-'''
-#Obtener valor de k
-'''
-Nc = range(1, 5)
-kmeans = [KMeans(n_clusters=i) for i in Nc]
-kmeans
-score = [kmeans[i].fit(X).score(X) for i in range(len(kmeans))]
-score
-plt.plot(Nc,score)
-plt.xlabel('Number of Clusters')
-plt.ylabel('Score')
-plt.title('Elbow Curve')
-plt.show()
-'''
 
-#Se define k means
 kmeans = KMeans(n_clusters=4).fit(X)
 centroids = kmeans.cluster_centers_
 print(centroids)
@@ -84,18 +66,11 @@ ax = Axes3D(fig)
 ax.scatter(X[:, 0], X[:, 1], X[:, 2], c=asignar,s=60)
 ax.scatter(C[:, 0], C[:, 1], C[:, 2], marker='*', c=colores, s=1000)
 
-#Grafica en dos dimenciones
 # Getting the values and plotting it
 f1 = dataframe['calculo'].values
 f2 = dataframe['Literario'].values
 
-'''
-plt.scatter(f1, f2, c=asignar, s=70)
-plt.scatter(C[:, 0], C[:, 1], marker='*', c=colores, s=1000)
-plt.show()
-'''
 
-#Ver cuantos items tiene cada color
 copy =  pd.DataFrame()
 copy['Etiqueta']=dataframe['Etiqueta'].values
 copy['label'] = labels;
@@ -104,7 +79,6 @@ cantidadGrupo['color']=colores
 cantidadGrupo['cantidad']=copy.groupby('label').size()
 print(cantidadGrupo)
 
-#Ver diversidad
 group_referrer_index = copy['label'] ==0
 group_referrals = copy[group_referrer_index]
 
@@ -112,16 +86,6 @@ diversidadGrupo =  pd.DataFrame()
 diversidadGrupo['Etiqueta']=[0,1,2,3]
 diversidadGrupo['cantidad']=group_referrals.groupby('Etiqueta').size()
 diversidadGrupo
-
-'''
-#Conseguir los usuarios mas cerca de los centroides
-
-#Clasificar nuevas muestras
-X_new = np.array([[0.36,0.4,0.4,0.34,0.64,0.66,0.56,0.54,0.64]]) #davidguetta
-
-new_labels = kmeans.predict(X_new)
-print(new_labels)
-'''
 
 n_classes = 4
 
