@@ -11,4 +11,4 @@ This repository contains small experiment scripts (PCA, K-Means, Fuzzy C-Means, 
 
 ## Notes
 - Files were standardized to remove external web references and to use consistent English headers.
-- Each `*Final.py` file is intended to be run as a standalone script.
+- Each `*.py` file is intended to be run as a standalone script.
